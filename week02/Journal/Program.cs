@@ -37,10 +37,13 @@ class Program
                     Console.Write("Your response: ");
                     string response = Console.ReadLine();
 
-                    Entry newEntry = new Entry();
-                    newEntry._date = DateTime.Now.ToShortDateString();
-                    newEntry._promptText = prompt;
-                    newEntry._entryText = response;
+                    Entry newEntry = new Entry(
+                        DateTime.Now.ToShortDateString(),
+                        prompt,
+                        response
+                    );
+                    journal.AddEntry(newEntry);
+
 
                     journal.AddEntry(newEntry);
                     Console.WriteLine("✅ Entry added successfully!");

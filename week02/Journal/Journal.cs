@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-
 public class Journal
 {
-    public List<Entry> _entries = new List<Entry>();
+    private List<Entry> _entries = new List<Entry>();
 
-    public void AddEntry(Entry newEntry)
+    public void AddEntry(Entry entry)
     {
-        _entries.Add(newEntry);
+        _entries.Add(entry);
     }
 
     public void DisplayAll()
@@ -31,8 +27,7 @@ public class Journal
         {
             foreach (Entry entry in _entries)
             {
-                // Format: date|prompt|entry
-                outputFile.WriteLine($"{entry._date}|{entry._promptText}|{entry._entryText}");
+                outputFile.WriteLine(entry.ToFileString());
             }
         }
     }
@@ -45,14 +40,7 @@ public class Journal
 
         foreach (string line in lines)
         {
-            string[] parts = line.Split("|");
-
-            Entry entry = new Entry();
-            entry._date = parts[0];
-            entry._promptText = parts[1];
-            entry._entryText = parts[2];
-
-            _entries.Add(entry);
+            _entries.Add(Entry.FromFileString(line));
         }
     }
 }
